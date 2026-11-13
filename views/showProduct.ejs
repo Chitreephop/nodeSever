@@ -1,0 +1,61 @@
+<div class="container my-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 fw-bold"><%= title %></h4>
+            <span class="badge bg-light text-primary fs-6">หน้า <%= currentPage %> จาก <%= totalPages %></span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="text-center py-3" style="width: 8%;">ลำดับ</th>
+                            <th scope="col" class="py-3" style="width: 15%;">รหัสสินค้า</th>
+                            <th scope="col" class="py-3">ชื่อสินค้า</th>
+                            <th scope="col" class="text-end py-3" style="width: 15%;">ราคา (บาท)</th>
+                            <th scope="col" class="text-center py-3" style="width: 18%;">จำนวนคงเหลือ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(function(product, index) { %>
+                            <tr>
+                                <td class="text-center fw-bold text-muted"><%= startIndex + index + 1 %></td>
+                                <td><span class="badge bg-secondary"><%= product.id %></span></td>
+                                <td class="fw-semibold"><%= product.name %></td>
+                                <td class="text-end fw-bold text-primary">
+                                    <%= product.price.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+                                </td>
+                                <td class="text-center">
+                                    <% if (product.quantity > 0) { %>
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+                                            <%= product.quantity %> ชิ้น
+                                        </span>
+                                    <% } else { %>
+                                        <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger px-3 py-2">
+                                            Out of Stock
+                                        </span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="card-footer bg-white py-3">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mb-0">
+                    <li class="page-item <%= currentPage <= 1 ? 'disabled' : '' %>">
+                        <a class="page-link" href="/showProduct?page=<%= currentPage - 1 %>">ก่อนหน้า</a>
+                    </li>
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                            <a class="page-link" href="/showProduct?page=<%= i %>"><%= i %></a>
+                        </li>
+                    <% } %>
+                    <li class="page-item <%= currentPage >= totalPages ? 'disabled' : '' %>">
+                        <a class="page-link" href="/showProduct?page=<%= currentPage + 1 %>">ถัดไป</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>

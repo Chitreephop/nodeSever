@@ -4,8 +4,9 @@ const port = 3000;
 const path = require('path');
 
 app.get('/', (req, res) => {
+  console.log("path: " + path.join(__dirname, 'index.html'));
   //res.send('Hello World!555 node.js is running myname is boat');
-  res.sendFile(path.join(__dirname, 'webPage', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/about', (req, res) => {
@@ -15,4 +16,3 @@ app.get('/about', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
